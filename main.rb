@@ -11,32 +11,25 @@ dail_book = {
     'Lancaster' => '717'
 }
 
-def display_city_names(dail_book)
-  dail_book.each do |key, value|
-      puts key
-  end
+def display_city_names(obj)
+  puts obj.keys 
 end
 
 def get_area_code(key_from_input, obj)
-  obj.each do |key, value|
-    if key_from_input != key
-      return puts "Invalid selection: #{key_from_input}"
-    else
-      puts "The area code for #{key_from_input} is #{value}"
-    end
-  end
+  obj[key_from_input]
 end
 
 loop do
   puts "Do you want to lookup an area code based on a city name? (Y/N)"
   input = gets.chomp.upcase 
-    if input == "Y"
-      puts "Which city do you want the area code for?" 
-      display_city_names(dail_book)
-      puts "Enter your selection"
-      city = gets.chomp.capitalize
-      get_area_code(city, dail_book)
+    break if input != "Y"
+    puts "Which city do you want the area code for?" 
+    display_city_names(dail_book)
+    puts "Enter your selection"
+    city = gets.chomp.capitalize
+    if dail_book.include?(city)
+      puts "The area code for #{city} is #{get_area_code(city, dail_book)}"
     else
-      break
+      puts "You entered an invalid city name: #{city}."
     end
 end
